@@ -10,11 +10,17 @@ class ChatScreen extends StatelessWidget {
             .collection('chats/pjNxxkwaivMCyMqNB2TU/messages')
             .snapshots(),
         builder: (ctx, stremSnapshot) {
+          if (stremSnapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          final documents = stremSnapshot.data.documents;
           return ListView.builder(
-            itemCount: 10,
+            itemCount: documents.length,
             itemBuilder: (ctx, index) => Container(
               padding: EdgeInsets.all(8),
-              child: Text('Hello'),
+              child: Text(documents[index]['text']),
             ),
           );
         },
