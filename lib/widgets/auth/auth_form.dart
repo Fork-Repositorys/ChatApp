@@ -41,6 +41,7 @@ class _AuthFormState extends State<AuthForm> {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   TextFormField(
+                    key: ValueKey('email'),
                     validator: (value) {
                       if (value.isEmpty || !value.contains('@')) {
                         return 'Please enter a valid email address.';
@@ -55,19 +56,22 @@ class _AuthFormState extends State<AuthForm> {
                       _userEmail = value;
                     },
                   ),
+                  if (_isLogin)
+                    TextFormField(
+                      key: ValueKey('username'),
+                      validator: (value) {
+                        if (value.isEmpty || value.length < 4) {
+                          return 'Please enter at least 4 characters.';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(labelText: 'Username'),
+                      onSaved: (value) {
+                        _userName = value;
+                      },
+                    ),
                   TextFormField(
-                    validator: (value) {
-                      if (value.isEmpty || value.length < 4) {
-                        return 'Please enter at least 4 characters.';
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(labelText: 'Username'),
-                    onSaved: (value) {
-                      _userName = value;
-                    },
-                  ),
-                  TextFormField(
+                    key: ValueKey('password'),
                     validator: (value) {
                       if (value.isEmpty || value.length < 7) {
                         return 'Password must be at least 7 characters long';
@@ -84,7 +88,7 @@ class _AuthFormState extends State<AuthForm> {
                     height: 12,
                   ),
                   RaisedButton(
-                    child: Text('Login'),
+                    child: Text(_isLogin ? 'Login' : 'Signup'),
                     onPressed: _trySubmit,
                   ),
                   FlatButton(
