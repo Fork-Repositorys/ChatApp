@@ -10,17 +10,7 @@ class _AuthScreenState extends State<AuthScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
-      body: Center(
-        child: Card(
-          margin: EdgeInsets.all(20),
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.all(16),
-              child: Form(),
-            ),
-          ),
-        ),
-      ),
+      body: AuthScreen(),
     );
   }
 }
